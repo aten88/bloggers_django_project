@@ -1,11 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Post
 
 
 def index(request):
-    title = "Это главная страница проекта Yatube"
+    posts = Post.objects.order_by('-pub_date')[:10]
     template = 'posts/index.html'
-    context = {'title': title}
+    context = {
+        'posts': posts,
+        }
     return render(request, template, context)
 
 
